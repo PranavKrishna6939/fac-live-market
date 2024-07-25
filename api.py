@@ -72,6 +72,6 @@ while True:
     csv_log.loc[i, 'Spot'] = spot
     
     today = datetime.datetime.now().date().strftime("%d_%m_%Y")
-    csv_log.to_csv(f'Logs_{today}.csv', index=False)
+    csv_log.to_csv(f'RawLogs_{today}.csv', index=False)
     i += 1
     time.sleep(1)
