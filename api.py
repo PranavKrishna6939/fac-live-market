@@ -49,6 +49,9 @@ tstamp = now + offset
 tstamp = tstamp.strftime("%H:%M:%S")
 
 while True:
+    now = datetime.datetime.now()
+    tstamp = now + offset
+    tstamp = tstamp.strftime("%H:%M:%S")
     while ((tstamp > "09:15:00") and (tstamp < "15:30:00")):
         now = datetime.datetime.now()
         tstamp = now + offset
