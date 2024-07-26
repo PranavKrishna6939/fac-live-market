@@ -48,6 +48,10 @@ column_names = ['Index','Timestamp', 'Spot']
 csv_log = pd.DataFrame(columns=column_names)
 i = 0
 
+now = datetime.datetime.now()
+tstamp = now + offset
+tstamp = tstamp.strftime("%H:%M:%S")
+
 while ((tstamp > "09:15:00") and (tstamp < "15:30:00")):
     now = datetime.datetime.now()
     tstamp = now + offset
