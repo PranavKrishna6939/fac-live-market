@@ -34,7 +34,7 @@ def load_data():
     offset = datetime.timedelta(hours=5, minutes=30)
     tstamp = now + offset
     tstamp = tstamp.strftime("%H:%M:%S")
-    if ((tstamp > "09:15:00") and (tstamp < "15:30:00")):
+    if ((tstamp > "09:17:00") and (tstamp < "15:30:00")):
         df = pd.read_csv('RawLogs_{today}.csv')
     else:
         df = pd.read_csv('example.csv')
