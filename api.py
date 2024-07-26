@@ -76,5 +76,5 @@ while True:
         csv_log.to_csv(f'RawLogs_{today}.csv', index=False)
         i += 1
         time.sleep(1)
-    print(f'tstamp} | Market is Closed')
+    print(f"{tstamp} | Market is Closed")
     time.sleep(60)
