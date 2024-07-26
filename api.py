@@ -8,10 +8,6 @@ import json
 import sys
 
 # credentials
-consumer_key = ''
-consumer_secret = ''
-mobile_number = ''
-password = ''
 
 def on_message(message):
     print(message)    
@@ -52,30 +48,33 @@ now = datetime.datetime.now()
 tstamp = now + offset
 tstamp = tstamp.strftime("%H:%M:%S")
 
-while ((tstamp > "09:15:00") and (tstamp < "15:30:00")):
-    now = datetime.datetime.now()
-    tstamp = now + offset
-    tstamp = tstamp.strftime("%H:%M:%S")
-
-    temp = get_ltp_index()
-    if (temp != -1):
-        spot = temp
-    elif (temp == -1):
-        while (temp == -1):
-            log_text(f"Error initializing Index!")
-            with open("creds.json","r") as file:
-                reuse_session = json.load(file)
-            client = NeoAPI(access_token="test",environment="prod", reuse_session=reuse_session)
-            temp = get_ltp_index()
-            spot = temp
-
-    log_text(f"{tstamp} | Fetched market price for Nifty 50 : {spot}")
-
-    csv_log.loc[i, 'Index'] = i
-    csv_log.loc[i, 'Timestamp'] = tstamp
-    csv_log.loc[i, 'Spot'] = spot
+while True:
+    while ((tstamp > "09:15:00") and (tstamp < "15:30:00")):
+        now = datetime.datetime.now()
+        tstamp = now + offset
+        tstamp = tstamp.strftime("%H:%M:%S")
     
-    today = datetime.datetime.now().date().strftime("%d_%m_%Y")
-    csv_log.to_csv(f'RawLogs_{today}.csv', index=False)
-    i += 1
-    time.sleep(1)
+        temp = get_ltp_index()
+        if (temp != -1):
+            spot = temp
+        elif (temp == -1):
+            while (temp == -1):
+                log_text(f"Error initializing Index!")
+                with open("creds.json","r") as file:
+                    reuse_session = json.load(file)
+                client = NeoAPI(access_token="test",environment="prod", reuse_session=reuse_session)
+                temp = get_ltp_index()
+                spot = temp
+    
+        log_text(f"{tstamp} | Fetched market price for Nifty 50 : {spot}")
+    
+        csv_log.loc[i, 'Index'] = i
+        csv_log.loc[i, 'Timestamp'] = tstamp
+        csv_log.loc[i, 'Spot'] = spot
+        
+        today = datetime.datetime.now().date().strftime("%d_%m_%Y")
+        csv_log.to_csv(f'RawLogs_{today}.csv', index=False)
+        i += 1
+        time.sleep(1)
+    print(f'tstamp} | Market is Closed')
+    time.sleep(60)
